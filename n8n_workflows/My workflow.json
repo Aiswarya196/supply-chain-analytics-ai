@@ -1,0 +1,370 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "simple": false,
+        "filters": {
+          "labelIds": [
+            "INBOX"
+          ],
+          "q": "subject:Daily Sales"
+        },
+        "options": {
+          "downloadAttachments": true
+        }
+      },
+      "type": "n8n-nodes-base.gmailTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        0
+      ],
+      "id": "7e08908b-60f6-4b7b-8b68-c62714bc4900",
+      "name": "Gmail Trigger",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "6V1a6RQqNPMS28zh",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "fact_aggregate",
+          "mode": "list",
+          "cachedResultName": "fact_aggregate"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "order_id": "={{ $json.order_id }}",
+            "order_placement_date": "={{ $json.order_placement_date.toDateTime('dd-MM-yyyy').format('yyyy-MM-dd') }}",
+            "customer_id": "={{ $json.customer_id }}",
+            "on_time": "={{ $json.on_time }}",
+            "in_full": "={{ $json.in_full }}",
+            "otif": "={{ $json.otif }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "order_id",
+              "displayName": "order_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "customer_id",
+              "displayName": "customer_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "order_placement_date",
+              "displayName": "order_placement_date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "on_time",
+              "displayName": "on_time",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "in_full",
+              "displayName": "in_full",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "otif",
+              "displayName": "otif",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        416,
+        0
+      ],
+      "id": "dbe359f2-8315-4d94-8037-2f8fec3ece2a",
+      "name": "Insert rows in a table",
+      "credentials": {
+        "postgres": {
+          "id": "bD8gaJOxX1b23EEX",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "fact_order_line",
+          "mode": "list",
+          "cachedResultName": "fact_order_line"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "order_id": "={{ $json.order_id }}",
+            "order_placement_date": "={{ $json.order_placement_date.toDateTime('dd-MM-yyyy').format('yyyy-MM-dd') }}",
+            "customer_id": "={{ $json.customer_id }}",
+            "product_id": "={{ $json.product_id }}",
+            "order_qty": "={{ $json.order_qty }}",
+            "agreed_delivery_date": "={{ $json.agreed_delivery_date.toDateTime('dd-MM-yyyy').format('yyyy-MM-dd') }}",
+            "actual_delivery_date": "={{ $json.actual_delivery_date.toDateTime('dd-MM-yyyy').format('yyyy-MM-dd') }}",
+            "delivery_qty": "={{ $json.delivery_qty }}",
+            "In Full": "={{ $json['In Full'] }}",
+            "On Time": "={{ $json['On Time'] }}",
+            "On Time In Full": "={{ $json['On Time In Full'] }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "order_id",
+              "displayName": "order_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "order_placement_date",
+              "displayName": "order_placement_date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "customer_id",
+              "displayName": "customer_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "product_id",
+              "displayName": "product_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "order_qty",
+              "displayName": "order_qty",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "agreed_delivery_date",
+              "displayName": "agreed_delivery_date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "actual_delivery_date",
+              "displayName": "actual_delivery_date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "delivery_qty",
+              "displayName": "delivery_qty",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "In Full",
+              "displayName": "In Full",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "On Time",
+              "displayName": "On Time",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "On Time In Full",
+              "displayName": "On Time In Full",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        416,
+        256
+      ],
+      "id": "c1f03f93-b51d-45d4-9ff8-8bf8ea0b4209",
+      "name": "Insert rows in a table1",
+      "credentials": {
+        "postgres": {
+          "id": "bD8gaJOxX1b23EEX",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "binaryPropertyName": "attachment_0",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "3e836a2f-a977-460d-b86b-47e8844e495a",
+      "name": "Extract from File:Aggregate"
+    },
+    {
+      "parameters": {
+        "binaryPropertyName": "attachment_1",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        208,
+        256
+      ],
+      "id": "f37a2566-22a5-4909-b535-ff12fe1ba9fd",
+      "name": "Extract from File:Order_lines"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Gmail Trigger": {
+      "main": [
+        [
+          {
+            "node": "Extract from File:Aggregate",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Extract from File:Order_lines",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File:Aggregate": {
+      "main": [
+        [
+          {
+            "node": "Insert rows in a table",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File:Order_lines": {
+      "main": [
+        [
+          {
+            "node": "Insert rows in a table1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "6868991a-91a8-454c-9b0a-e09a3c839ef3",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "c5b569f69901c380d9730714c41c42d120ce75dd43bbdce1d130a40443f4dbf7"
+  },
+  "id": "pw7jCN604z4J7Q13",
+  "tags": []
+}
