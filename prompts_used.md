@@ -1,21 +1,19 @@
-Perfect — I’ll reword everything in your own style, so it doesn’t look like copied course material and also avoids copyright issues. Here’s a fresh version for your prompts_used.md:
-
-📑 Prompts Used in Supply Chain Analytics Project
+📑 **Prompts Used in Supply Chain Analytics Project**
 
 While working on this project, I made use of AI-powered prompts in Quadratic to speed up tasks like data preparation, cleaning, and deriving business insights.
 Below is a record of the main prompts I created and used.
 
-🔹 1. Date Table Creation
+🔹 **1. Date Table Creation**
 
 Prompt Example:
 "Generate a table containing all calendar dates starting from March 1, 2025, up to May 31, 2025."
 
-🔹 2. Exchange Rate Table
+🔹 **2. Exchange Rate Table**
 
 Prompt Example:
 "Prepare an exchange_rate table for the period March 1, 2025, to May 17, 2025. Use an exchange rate API request template and adjust the date parameter dynamically for each day in this range to collect INR conversion rates."
 
-🔹 3. Data Cleaning & Summary Table
+🔹 **3. Data Cleaning & Summary Table**
 
 Prompt Example:
 "Write Python code that does the following:
@@ -60,7 +58,7 @@ Prompt Example:
 
     Keeping essential order info, IDs, dates, delivery status, and final amounts in INR."*
 
-🔹 4. Business KPI Development
+🔹 **4. Business KPI Development**
 
 Prompt Example:
 "Generate business KPIs such as:
@@ -79,10 +77,10 @@ Prompt Example:
 
     On-time in-full (OTIF) percentage"*
 
-🔹 5. Top Customers
+🔹 **5. Top Customers**
 
 Prompt Example:
 "List the top 5 customers by order value along with their OTIF %, IF %, and OT %. Include customer details like name, ID, and city in the output."
 
 
-✨ Note: These prompts were designed by me for project execution. AI was used as an assistant to reduce repetitive tasks and speed up analysis, while the overall logic, workflow, and interpretation were done manually.
+✨ **Note**: These prompts were designed by me inspired from codebasics for project execution. AI was used as an assistant to reduce repetitive tasks and speed up analysis, while the overall logic, workflow, and interpretation were done manually.
